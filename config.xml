@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.10">
+    <actions>
+        <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.1.4">
+            <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+                <mappedUrl>blue/organizations/jenkins/amazin-inventory</mappedUrl>
+            </blueOceanUrlObject>
+        </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+    </actions>
+    <description></description>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <io.fabric8.jenkins.openshiftsync.BuildConfigProjectProperty plugin="openshift-sync@0.1.26">
+            <uid></uid>
+            <namespace></namespace>
+            <name></name>
+            <resourceVersion></resourceVersion>
+        </io.fabric8.jenkins.openshiftsync.BuildConfigProjectProperty>
+        <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.22">
+            <autoRebuild>false</autoRebuild>
+        </com.sonyericsson.rebuild.RebuildSettings>
+        <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+                <hudson.model.StringParameterDefinition>
+                    <name>org</name>
+                    <description>the organisation using this product</description>
+                    <defaultValue>amazin</defaultValue>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>app_name</name>
+                    <description>the product name</description>
+                    <defaultValue>inventory</defaultValue>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>git_url</name>
+                    <description>the git url for the project</description>
+                    <defaultValue>https://github.com/justindav1s/microservices-on-openshift.git</defaultValue>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>config_file</name>
+                    <description>a config file to be attached to a configmap</description>
+                    <defaultValue>src/main/resources/config.dev.properties</defaultValue>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>devTag</name>
+                    <description>the version tag for a dev build</description>
+                    <defaultValue>0.0.1-SNAPSHOT</defaultValue>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>prodTag</name>
+                    <description>the version tag for a production version</description>
+                    <defaultValue>v3</defaultValue>
+                </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+        </hudson.model.ParametersDefinitionProperty>
+        <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+            <triggers/>
+        </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+    </properties>
+    <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.36.1">
+        <scm class="hudson.plugins.git.GitSCM" plugin="git@3.3.2">
+            <configVersion>2</configVersion>
+            <userRemoteConfigs>
+                <hudson.plugins.git.UserRemoteConfig>
+                    <url>https://github.com/justindav1s/microservices-on-openshift.git</url>
+                </hudson.plugins.git.UserRemoteConfig>
+            </userRemoteConfigs>
+            <branches>
+                <hudson.plugins.git.BranchSpec>
+                    <name>*/master</name>
+                </hudson.plugins.git.BranchSpec>
+            </branches>
+            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+            <submoduleCfg class="list"/>
+            <extensions/>
+        </scm>
+        <scriptPath>cicd_pipelines/inventory/pipeline.groovy</scriptPath>
+        <lightweight>true</lightweight>
+    </definition>
+    <triggers/>
+</flow-definition>

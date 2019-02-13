@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: inventory-prd
+
+server:
+  port: 8080
+
+basket:
+  host: basket-prd:8080
+
+inventory:
+  host: inventory-prd:8080
+
+user:
+  host: user-prd:8080
+
+
+opentracing:
+  jaeger:
+    enable-b3-propagation: true
+    opentracing.jaeger.expand-exception-logs: true
+    http-sender:
+      url: http://jaeger-collector.istio-system.svc:14268/api/traces
+#    udp-sender:
+#      host: jaeger-collector.istio-system.svc
+#      port: 14267
