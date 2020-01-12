@@ -2,6 +2,7 @@ target
 *.iml
 .idea
 .DS_Store
+.theia
 
 # Compiled class file
 *.class
