@@ -26,6 +26,10 @@ public class ProductController {
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
+        for (String header : headers.keySet())   {
+            log.debug("header : "+header + " val : "+ headers.get(header));
+        }
+
 
         log.debug("Product get All");
 
