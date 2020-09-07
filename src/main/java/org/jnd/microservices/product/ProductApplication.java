@@ -11,8 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
@@ -28,9 +30,12 @@ import javax.annotation.PostConstruct;
 @EnableAutoConfiguration
 public class ProductApplication extends SpringBootServletInitializer {
 
-    private Log log = LogFactory.getLog(ProductController.class);
+    private final Log log = LogFactory.getLog(ProductController.class);
 
-    public static void main(String[] args) {
+    @Autowired
+    private Environment environment;
+
+    public static void main(final String[] args) {
         SpringApplication.run(ProductApplication.class, args);
     }
 
@@ -46,6 +51,8 @@ public class ProductApplication extends SpringBootServletInitializer {
 
     @PostConstruct
     public void debug() {
-        log.info("******** : v2");
+        for (final String profileName : environment.getActiveProfiles()) {
+            log.info("Currently active profile - " + profileName);
+        }
     }
 }

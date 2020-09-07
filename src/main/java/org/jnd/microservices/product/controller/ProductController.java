@@ -21,7 +21,7 @@ public class ProductController {
     private Log log = LogFactory.getLog(ProductController.class);
 
     @Autowired
-    private ProductRepository repository;
+    public ProductRepository repository;
 
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
