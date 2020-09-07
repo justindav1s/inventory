@@ -1,0 +1,1 @@
+https://codeready-openshift-workspaces.apps.ocp4.datr.eu/
