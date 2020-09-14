@@ -5,7 +5,7 @@ projects:
   - name: inventory
     source:
       type: git
-      location: "https://github.com/justindav1s/inventory.git"
+      location: "git@github.com:justindav1s/inventory.git"
 components:
   - id: redhat/java8/latest
     type: chePlugin
