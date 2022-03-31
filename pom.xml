@@ -25,7 +25,7 @@
 	</distributionManagement>
 
 	<properties>
-		<spring.boot.version>2.2.2.RELEASE</spring.boot.version>
+		<spring.boot.version>2.5.12</spring.boot.version>
 	</properties>
 
 	<dependencies>
